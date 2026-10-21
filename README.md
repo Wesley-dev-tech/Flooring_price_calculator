@@ -1,6 +1,6 @@
 # Vloermeesters — Tile Installation Price Calculator
 
-A course project during my developer training: a website for a fictional tiling company, with a price calculator for private customers and a downloadable quote.
+A course project during my developer training: a website for a fictional tiling company, with a price calculator for private customers and a downloadable pdf.
 
 ## The Assignment
 
