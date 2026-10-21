@@ -31,7 +31,7 @@ The layout was free to choose, but had to use Bootstrap, Bootstrap Grid, Flexbox
 - A responsive one-page website with a hero, services, price calculator and contact section.
 - A price form with name, length, width, joint thickness and joint colour.
 - Input validation with an alert when a field is missing or invalid.
-- Price calculation: tiles (with 10% extra for cutting waste), installation at € 45/m², the selected joint finish (€ 8–€ 20/m²), and 21% VAT. Customers can also choose to supply their own tiles.
+- Price calculation and 21% VAT. Customers can also choose to supply their own tiles.
 - An alert with the price excluding and including VAT, rounded to two decimals.
 - A branded quote with customer contact details, project details, a price breakdown, a unique quote number and a 30-day validity period. Numbers use Belgian formatting (for example, `1.234,56`).
 - A "Download als PDF" button that generates and downloads an A4 PDF quote using jsPDF.
