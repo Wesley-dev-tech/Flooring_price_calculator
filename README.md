@@ -1,4 +1,4 @@
-# Vloermeesters — Flooring Installation Price Calculator
+# Vloermeesters — Flooring Price Calculator
 
 A course project during my developer training: a website for a fictional tiling company, with a price calculator for private customers and a downloadable pdf.
 
