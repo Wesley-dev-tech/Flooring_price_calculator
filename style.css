@@ -445,6 +445,31 @@ h3 {
     font-size: 0.85rem;
 }
 
+/* Contactgegevens onder elkaar */
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    font-size: 0.9rem;
+    font-style: normal;
+}
+
+.footer-contact a {
+    color: #C9BFB3;
+    text-decoration: none;
+}
+
+.footer-contact a:hover {
+    color: var(--kleur-wit);
+}
+
+.footer-contact i {
+    color: var(--kleur-accent);
+    width: 16px;
+    margin-right: 8px;
+}
+
 /* ---------- Offerte (PDF) ---------- */
 .offerte {
     background-color: var(--kleur-wit);
