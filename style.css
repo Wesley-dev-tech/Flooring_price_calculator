@@ -418,13 +418,14 @@ h3 {
     padding: 28px 0;
 }
 
-/* Flexbox: tekst links en rechts verdeeld, op gsm onder elkaar (wrap) */
+/* Flexbox: copyright links, contact rechts, op gsm onder elkaar (wrap).
+   Bovenaan uitgelijnd zodat de copyright gelijk staat met de eerste contactregel. */
 .footer-inhoud {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 24px;
 }
 
 .footer-inhoud p {
@@ -439,6 +440,13 @@ h3 {
 .footer-logo i {
     color: var(--kleur-accent);
     margin-right: 6px;
+}
+
+/* Rechterkolom: contactgegevens met de noot eronder */
+.footer-rechts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .footer-noot {
