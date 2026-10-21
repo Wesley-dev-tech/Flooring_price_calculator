@@ -35,6 +35,8 @@ The layout was free to choose, but had to use Bootstrap, Bootstrap Grid, Flexbox
 - An alert with the price excluding and including VAT, rounded to two decimals.
 - A branded quote with customer contact details, project details, a price breakdown, a unique quote number and a 30-day validity period. Numbers use Belgian formatting (for example, `1.234,56`).
 - A "Download als PDF" button that generates and downloads an A4 PDF quote using jsPDF.
+- A footer with the company's (fictional) contact details: e-mail, phone, registered office and company number, spread over three columns. The on-screen quote and the PDF use the same footer layout, with the company address under "Van".
+- Cache busting: `style.css` and `app.js` are loaded with a version number (`?v=1.3.0`), so browsers load the latest version after an update.
 - A mobile menu that closes automatically after choosing a section.
 
 ## What I Practised
@@ -56,4 +58,6 @@ To download a quote as PDF: complete the form, calculate a price and click **Dow
 
 ## About This Version
 
-Vloermeesters is a fictional company created for a school assignment, and the rates are fictional. The quote is an indication only; additional materials, preparation work and extra costs are not included. This is a static frontend demo: form data is processed in the browser and nothing is sent to or stored by a server.
+Current version: **1.3.0**. After changing `style.css` or `app.js`, raise the `?v=` number on both links in `index.html` so visitors don't get an old cached copy.
+
+Vloermeesters is a fictional company created for a school assignment, and the rates are fictional. The contact details are deliberately invalid so they can't belong to a real company: the e-mail address uses the reserved `.example` domain, the phone number `+32 (0)14 01 23 45` can't exist (Belgian subscriber numbers never start with 0), and the company number `BE 0123.456.789` fails the official modulo-97 check. The quote is an indication only; additional materials, preparation work and extra costs are not included. This is a static frontend demo: form data is processed in the browser and nothing is sent to or stored by a server.

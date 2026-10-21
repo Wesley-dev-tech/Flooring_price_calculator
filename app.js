@@ -258,8 +258,8 @@ pdfKnop.addEventListener('click', () => {
     pdf.text(pdf.splitTextToSize(b.naam, 52)[0], kolom2, y + 7);
 
     stijl(9.5, false, grijs);
-    pdf.text('Tegelwerken voor particulieren', marge, y + 13);
-    pdf.text('België', marge, y + 18);
+    pdf.text('Tegelzetterslaan 99', marge, y + 13);
+    pdf.text('2490 Balen', marge, y + 18);
     // Adres en contactgegevens van de klant onder elkaar.
     [b.straat, `${b.postcode} ${b.gemeente}`, b.telefoon, b.email].forEach((regel, i) => {
         pdf.text(pdf.splitTextToSize(regel, 52)[0], kolom2, y + 13 + i * 5);
@@ -387,13 +387,39 @@ pdfKnop.addEventListener('click', () => {
     });
 
     // ---------- Voet ----------
-    const voetY = paginahoogte - 15;
+    // Zelfde opbouw als de footer van de website: drie kolommen over de volle breedte
+    // (copyright, contact, bedrijfsgegevens) en daaronder de noot, gecentreerd.
+    const voetY = paginahoogte - 22;
     pdf.setDrawColor(...lijn);
     pdf.setLineWidth(0.3);
-    pdf.line(marge, voetY - 5, rechts, voetY - 5);
-    stijl(8, false, grijs);
-    pdf.text('Vloermeesters - Vakmanschap, tegel voor tegel.', marge, voetY);
-    pdf.text('Fictief bedrijf, bedacht voor een schoolopdracht', rechts, voetY, { align: 'right' });
+    pdf.line(marge, voetY - 6, rechts, voetY - 6);
+
+    const voetKolommen = [
+        ['© 2026 Vloermeesters', 'Vakmanschap, tegel voor tegel.'],
+        ['info@vloermeesters.example', '+32 (0)14 01 23 45'],
+        ['Maatschappelijke zetel: Tegelzetterslaan 99, 2490 Balen', 'Ondernemingsnummer: BE 0123.456.789']
+    ];
+    // Breedte van elke kolom = langste regel; de overige ruimte gaat gelijk verdeeld tussen de kolommen.
+    stijl(8);
+    const kolomBreedtes = voetKolommen.map((regels) => Math.max(...regels.map((regel) => pdf.getTextWidth(regel))));
+    const tussenruimte = (inhoudbreedte - kolomBreedtes.reduce((som, breedte) => som + breedte, 0)) / (voetKolommen.length - 1);
+    let voetX = marge;
+    voetKolommen.forEach((regels, i) => {
+        regels.forEach((regel, r) => {
+            // De copyright in het vet, net als op de website.
+            if (i === 0 && r === 0) {
+                stijl(8, true);
+            } else {
+                stijl(8, false, grijs);
+            }
+            pdf.text(regel, voetX, voetY + r * 4.5);
+        });
+        voetX += kolomBreedtes[i] + tussenruimte;
+    });
+
+    pdf.line(marge, voetY + 9, rechts, voetY + 9);
+    stijl(7.5, false, grijs);
+    pdf.text('Vloermeesters is een fictief bedrijf, bedacht voor een schoolopdracht.', paginabreedte / 2, voetY + 14, { align: 'center' });
 
     // Het PDF-bestand rechtstreeks downloaden.
     pdf.save('offerte-vloermeesters.pdf');

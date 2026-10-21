@@ -445,13 +445,10 @@ h3 {
     }
 }
 
-/* Op gsm komt de slogan bewust op een eigen regel, onder de tekst na het icoon,
-   zodat er geen los woord naar de volgende regel valt */
-@media (max-width: 767.98px) {
-    .footer-slogan {
-        display: block;
-        padding-left: 22px;
-    }
+/* Slogan op een eigen regel onder de copyright, uitgelijnd met de tekst na het icoon */
+.footer-slogan {
+    display: block;
+    padding-left: 22px;
 }
 
 .footer-logo i {
@@ -700,20 +697,63 @@ h3 {
     margin: 0;
 }
 
-/* Voet */
+/* Voet: zelfde opbouw als de footer van de website */
 .offerte-voet {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
     padding: 0.9rem 2rem;
     background-color: var(--kleur-achtergrond);
     font-size: 0.8rem;
     color: var(--kleur-secundair);
 }
 
+/* Drie blokken met evenveel ruimte ertussen, op smalle schermen onder elkaar */
+.offerte-voet-kolommen {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+}
+
+.offerte-voet-kolommen p {
+    margin: 0;
+}
+
+.offerte-voet-logo {
+    font-weight: 600;
+    color: var(--kleur-primair);
+}
+
+.offerte-voet-logo i {
+    margin-right: 6px;
+}
+
+.offerte-voet-logo .footer-slogan {
+    padding-left: 19px;
+    font-weight: 400;
+    color: var(--kleur-secundair);
+}
+
+.offerte-voet-blok {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.offerte-voet-blok i {
+    width: 14px;
+    margin-right: 6px;
+}
+
 .offerte-voet i {
     color: var(--kleur-accent);
+}
+
+.offerte-voet-noot {
+    margin: 0.75rem 0 0;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(140, 123, 107, 0.25);
+    text-align: center;
+    font-size: 0.75rem;
 }
 
 /* ---------- Afdrukken / opslaan als PDF ---------- */
