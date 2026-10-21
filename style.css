@@ -438,10 +438,19 @@ h3 {
     font-weight: 600;
 }
 
-/* Copyright op één regel vanaf tabletbreedte (op gsm mag hij nog afbreken) */
+/* Copyright op één regel vanaf tabletbreedte */
 @media (min-width: 768px) {
     .footer-logo {
         white-space: nowrap;
+    }
+}
+
+/* Op gsm komt de slogan bewust op een eigen regel, onder de tekst na het icoon,
+   zodat er geen los woord naar de volgende regel valt */
+@media (max-width: 767.98px) {
+    .footer-slogan {
+        display: block;
+        padding-left: 22px;
     }
 }
 
