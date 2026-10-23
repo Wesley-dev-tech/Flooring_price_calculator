@@ -1,5 +1,5 @@
 /* =========================================================
-   Vloermeesters - eigen CSS
+   Vloermeester bv - eigen CSS
    Bootstrap Grid = pagina-indeling (kolommen)
    Flexbox        = uitlijning BINNEN die kolommen
    ========================================================= */
@@ -274,9 +274,9 @@ h3 {
     box-shadow: 0 0 0 0.2rem rgba(140, 123, 107, 0.25);
 }
 
-/* Flexbox: knop en noot naast elkaar, op een smal scherm onder elkaar (wrap) */
-/* Flexbox (kolom): het formulier vult de volledige hoogte naast de tarievenkaart */
-.formulier-kaart .card-body {
+/* Flexbox (kolom): formulier en tarievenkaart vullen allebei de volledige hoogte naast elkaar */
+.formulier-kaart .card-body,
+.tarief-kaart .card-body {
     display: flex;
     flex-direction: column;
 }
@@ -290,6 +290,7 @@ h3 {
     /* de groepen (gegevens, afmetingen, tegels, voeg, knoppen) evenredig verdeeld */
 }
 
+/* Flexbox: knop en noot naast elkaar, op een smal scherm onder elkaar (wrap) */
 .formulier-knoppen {
     display: flex;
     flex-wrap: wrap;
@@ -313,12 +314,6 @@ h3 {
     color: var(--kleur-wit);
 }
 
-/* Flexbox (kolom): de tarievenkaart vult de volledige hoogte naast het formulier */
-.tarief-kaart .card-body {
-    display: flex;
-    flex-direction: column;
-}
-
 .tarief-lijst {
     list-style: none;
     padding: 0;
@@ -329,13 +324,10 @@ h3 {
     flex-direction: column;
 }
 
-.tarief-lijst .tarief-rij {
-    flex-grow: 1;
-    /* elke rij krijgt een even groot deel van die ruimte */
-}
-
 /* Flexbox: naam links en prijs rechts op dezelfde lijn */
 .tarief-rij {
+    flex-grow: 1;
+    /* elke rij krijgt een even groot deel van de vrije ruimte in de lijst */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -476,7 +468,7 @@ h3 {
 }
 
 .footer-contact a {
-    color: #C9BFB3;
+    color: inherit;
     text-decoration: none;
 }
 

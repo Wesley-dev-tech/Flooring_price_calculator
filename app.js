@@ -1,5 +1,5 @@
 // =========================================================
-// Vloermeesters - prijsberekening
+// Vloermeester bv - prijsberekening
 // =========================================================
 
 // ---------- 1. Elementen uit de HTML ophalen ----------
@@ -27,6 +27,7 @@ const getalFormatter = new Intl.NumberFormat('nl-BE', {
 });
 
 const formatteerGetal = (waarde) => getalFormatter.format(waarde);
+const euro = (waarde) => `€ ${formatteerGetal(waarde)}`;   // bedrag met euroteken, bv. "€ 1.234,56"
 
 // Telefoonnummer controleren. Toegelaten: 0470 12 34 56, 0470/12.34.56, +32 470 12 34 56, 0032 (0)470-123456 ...
 // - enkel cijfers, spaties en de tekens / . - ( ), met eventueel één + helemaal vooraan (landnummer)
@@ -107,7 +108,7 @@ berekenKnop.addEventListener('click', () => {
         // ---------- Offerte invullen ----------
         // .textContent = de tekst in dat HTML-element vervangen.
         // Intl.NumberFormat gebruikt Belgische getalnotatie met twee decimalen.
-        document.getElementById('offerteDatum').textContent = new Date().toLocaleDateString('nl-BE');
+        document.getElementById('offerteDatum').textContent = laatsteBerekening.datum.toLocaleDateString('nl-BE');
         document.getElementById('offerteNaam').textContent = naam;
         document.getElementById('offerteStraat').textContent = straat;
         document.getElementById('offerteGemeente').textContent = `${postcode} ${gemeente}`;
@@ -118,42 +119,35 @@ berekenKnop.addEventListener('click', () => {
         document.getElementById('offerteTegeltype').textContent = tegeltype;
         document.getElementById('offerteVoegkleur').textContent = voegkleur;
         document.getElementById('offerteTegelprijs').textContent =
-            `(${formatteerGetal(tegelOppervlakte)} m² × € ${formatteerGetal(tegelprijs)}/m², incl. 10% snijverlies)`;
-        document.getElementById('offerteTegels').textContent = `€ ${formatteerGetal(tegelkosten)}`;
+            `(${formatteerGetal(tegelOppervlakte)} m² × ${euro(tegelprijs)}/m², incl. 10% snijverlies)`;
+        document.getElementById('offerteTegels').textContent = euro(tegelkosten);
 
         // Bij eigen tegels is er geen tegelregel nodig in het prijsoverzicht.
         document.getElementById('offerteTegelRij').classList.toggle('offerte-verborgen', tegelprijs === 0);
-        document.getElementById('offerteVoegprijs').textContent = `(€ ${formatteerGetal(voegprijs)}/m²)`;
-        document.getElementById('offertePlaatsing').textContent = `€ ${formatteerGetal(plaatsingskosten)}`;
-        document.getElementById('offerteVoeg').textContent = `€ ${formatteerGetal(voegkosten)}`;
-        document.getElementById('offerteExcl').textContent = `€ ${formatteerGetal(prijsExclBtw)}`;
-        document.getElementById('offerteBtw').textContent = `€ ${formatteerGetal(btw)}`;
-        document.getElementById('offerteIncl').textContent = `€ ${formatteerGetal(prijsInclBtw)}`;
+        document.getElementById('offerteVoegprijs').textContent = `(${euro(voegprijs)}/m²)`;
+        document.getElementById('offertePlaatsing').textContent = euro(plaatsingskosten);
+        document.getElementById('offerteVoeg').textContent = euro(voegkosten);
+        document.getElementById('offerteExcl').textContent = euro(prijsExclBtw);
+        document.getElementById('offerteBtw').textContent = euro(btw);
+        document.getElementById('offerteIncl').textContent = euro(prijsInclBtw);
 
         // Het offerteblok zichtbaar maken door de CSS-klasse "offerte-verborgen" weg te halen.
         offerte.classList.remove('offerte-verborgen');
 
-        // De invoervelden weer leegmaken.
-        achternaamInput.value = '';
-        voornaamInput.value = '';
-        emailInput.value = '';
-        telefoonInput.value = '';
-        straatInput.value = '';
-        postcodeInput.value = '';
-        gemeenteInput.value = '';
-        lengteInput.value = '';
-        breedteInput.value = '';
+        // De invoervelden weer leegmaken (de keuzelijsten blijven staan).
+        [achternaamInput, voornaamInput, emailInput, telefoonInput, straatInput, postcodeInput, gemeenteInput,
+            lengteInput, breedteInput].forEach((veld) => { veld.value = ''; });
 
         // De prijs tonen in een alert.
         // Tussen backticks (` `) kan je met ${...} variabelen in de tekst zetten.
         alert(`Hallo, ${voornaam}!
 Oppervlakte: ${formatteerGetal(oppervlakte)} m²
 Tegels: ${tegeltype}
-Tegelkosten: € ${formatteerGetal(tegelkosten)}
-Voegprijs: € ${formatteerGetal(voegprijs)}/m²
+Tegelkosten: ${euro(tegelkosten)}
+Voegprijs: ${euro(voegprijs)}/m²
 Voegkleur: ${voegkleur}
-Prijs excl. btw: € ${formatteerGetal(prijsExclBtw)}
-Prijs incl. btw: € ${formatteerGetal(prijsInclBtw)}`);
+Prijs excl. btw: ${euro(prijsExclBtw)}
+Prijs incl. btw: ${euro(prijsInclBtw)}`);
 
         // Na het sluiten van de pop-up naar de offerte scrollen.
         offerte.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -211,7 +205,6 @@ pdfKnop.addEventListener('click', () => {
     const lijn = [225, 220, 214];
     const lichtvlak = [247, 243, 238];
 
-    const euro = (waarde) => `€ ${formatteerGetal(waarde)}`;
     const tweeCijfers = (getal) => String(getal).padStart(2, '0');
 
     // Hulpfunctie: lettertype, grootte en kleur in één keer instellen.
@@ -234,7 +227,7 @@ pdfKnop.addEventListener('click', () => {
     pdf.rect(0, 36, paginabreedte, 1.5, 'F');
 
     stijl(22, true, wit);
-    pdf.text('Vloermeesters', marge, 18);
+    pdf.text('Vloermeester bv', marge, 18);
     stijl(10, false, lichtgrijs);
     pdf.text('Vakmanschap, tegel voor tegel.', marge, 26);
 
@@ -254,7 +247,7 @@ pdfKnop.addEventListener('click', () => {
     pdf.text('GEGEVENS', kolom3, y);
 
     stijl(11, true);
-    pdf.text('Vloermeesters', marge, y + 7);
+    pdf.text('Vloermeester bv', marge, y + 7);
     pdf.text(pdf.splitTextToSize(b.naam, 52)[0], kolom2, y + 7);
 
     stijl(9.5, false, grijs);
@@ -395,8 +388,8 @@ pdfKnop.addEventListener('click', () => {
     pdf.line(marge, voetY - 6, rechts, voetY - 6);
 
     const voetKolommen = [
-        ['© 2026 Vloermeesters', 'Vakmanschap, tegel voor tegel.'],
-        ['info@vloermeesters.example', '+32 (0)14 01 23 45'],
+        ['© 2026 Vloermeester bv', 'Vakmanschap, tegel voor tegel.'],
+        ['info@vloermeester.example', '+32 (0)14 01 23 45'],
         ['Maatschappelijke zetel: Tegelzetterslaan 99, 2490 Balen', 'Ondernemingsnummer: BE 0123.456.789']
     ];
     // Breedte van elke kolom = langste regel; de overige ruimte gaat gelijk verdeeld tussen de kolommen.
@@ -419,10 +412,10 @@ pdfKnop.addEventListener('click', () => {
 
     pdf.line(marge, voetY + 9, rechts, voetY + 9);
     stijl(7.5, false, grijs);
-    pdf.text('Vloermeesters is een fictief bedrijf, bedacht voor een schoolopdracht.', paginabreedte / 2, voetY + 14, { align: 'center' });
+    pdf.text('Vloermeester bv is een fictief bedrijf, bedacht voor een schoolopdracht.', paginabreedte / 2, voetY + 14, { align: 'center' });
 
     // Het PDF-bestand rechtstreeks downloaden.
-    pdf.save('offerte-vloermeesters.pdf');
+    pdf.save('offerte-vloermeester.pdf');
 });
 
 // ---------- 4. Menu op gsm automatisch sluiten ----------
